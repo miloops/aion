@@ -38,16 +38,25 @@ def transform_task(data: pd.DataFrame, task: Dict[str, Any]) -> pd.DataFrame:
                 if not isinstance(fields_to_concat, list):
                     raise ValueError("concat must be a list of fields")
                 
-                # Validate all fields exist
+                # Validate only actual column names exist
                 for field in fields_to_concat:
                     if isinstance(field, str) and field not in data.columns:
-                        raise ValueError(f"Field '{field}' not found in data")
+                        # Check if it's a common string literal that should be allowed
+                        if field.strip() == "" or len(field) <= 2:
+                            # Allow short strings and whitespace as literals
+                            continue
+                        else:
+                            raise ValueError(f"Field '{field}' not found in data")
                 
                 # Concatenate
                 result[new_field] = ""
                 for field in fields_to_concat:
                     if isinstance(field, str):
-                        result[new_field] += data[field].astype(str)
+                        if field in data.columns:
+                            result[new_field] += data[field].astype(str)
+                        else:
+                            # Treat as literal string
+                            result[new_field] += field
                     else:
                         result[new_field] += str(field)
             
