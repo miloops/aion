@@ -10,10 +10,10 @@ from .aggregate import aggregate_task
 from .export import export_task
 
 __all__ = [
-    "filter_task", 
-    "sort_task", 
-    "transform_task", 
+    "filter_task",
+    "sort_task",
+    "transform_task",
     "model_call_task",
     "aggregate_task",
-    "export_task"
-] 
+    "export_task",
+]

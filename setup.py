@@ -48,4 +48,4 @@ setup(
             "aion=aion.cli:main",
         ],
     },
-) 
+)
