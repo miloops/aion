@@ -32,12 +32,17 @@ class AIONInterpreter:
     
     def _register_default_tasks(self):
         """Register the default task handlers."""
-        from ..tasks import filter_task, sort_task, transform_task, model_call_task
+        from ..tasks import (
+            filter_task, sort_task, transform_task, model_call_task,
+            aggregate_task, export_task
+        )
         
         self.registry.register("filter", filter_task)
         self.registry.register("sort", sort_task)
         self.registry.register("transform", transform_task)
         self.registry.register("model_call", model_call_task)
+        self.registry.register("aggregate", aggregate_task)
+        self.registry.register("export", export_task)
     
     def execute(self, program: Dict[str, Any], 
                 input_data: Optional[Any] = None) -> ExecutionResult:

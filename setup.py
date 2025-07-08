@@ -29,12 +29,18 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "pandas>=1.3.0",
+        "openai>=1.0.0",
+        "anthropic>=0.7.0",
     ],
     extras_require={
         "dev": [
             "pytest>=6.0",
             "black>=21.0",
             "flake8>=3.8",
+        ],
+        "export": [
+            "openpyxl>=3.0.0",
+            "pyarrow>=10.0.0",
         ],
     },
     entry_points={

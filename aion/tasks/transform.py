@@ -41,9 +41,16 @@ def transform_task(data: pd.DataFrame, task: Dict[str, Any]) -> pd.DataFrame:
                 # Validate only actual column names exist
                 for field in fields_to_concat:
                     if isinstance(field, str) and field not in data.columns:
-                        # Check if it's a common string literal that should be allowed
-                        if field.strip() == "" or len(field) <= 2:
-                            # Allow short strings and whitespace as literals
+                        # Check if it's a string literal that should be allowed
+                        if (field.strip() == "" or 
+                            len(field) <= 3 or 
+                            field.startswith(" ") or 
+                            field.endswith(" ") or
+                            "(" in field or 
+                            ")" in field or
+                            "-" in field or
+                            ":" in field):
+                            # Allow short strings, whitespace, and common punctuation as literals
                             continue
                         else:
                             raise ValueError(f"Field '{field}' not found in data")

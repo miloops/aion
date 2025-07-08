@@ -1,0 +1,51 @@
+{
+  "pipeline": [
+    {
+      "task": "filter",
+      "condition": {
+        "field": "status",
+        "operator": "==",
+        "value": "active"
+      }
+    },
+    {
+      "task": "sort",
+      "operation": {
+        "field": "activity_score",
+        "order": "desc"
+      }
+    },
+    {
+      "task": "transform",
+      "mapping": {
+        "user_id": "id",
+        "full_name": {
+          "concat": ["first_name", " ", "last_name"]
+        },
+        "performance_level": {
+          "concat": ["Score: ", "activity_score", " - ", "status"]
+        }
+      }
+    },
+    {
+      "task": "aggregate",
+      "group_by": ["status"],
+      "aggregations": {
+        "activity_score": ["mean", "max", "min"],
+        "age": "count"
+      }
+    },
+    {
+      "task": "model_call",
+      "prompt": "Analyze the performance metrics for this group:",
+      "input_field": "performance_level",
+      "output_field": "ai_analysis",
+      "provider": "simulate"
+    },
+    {
+      "task": "export",
+      "file_path": "output/processed_data.csv",
+      "format": "csv"
+    }
+  ]
+} 
