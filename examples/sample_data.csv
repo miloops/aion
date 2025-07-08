@@ -1,0 +1,6 @@
+id,first_name,last_name,age,status,created_at,activity_score
+1,John,Doe,25,active,2023-01-15,85
+2,Jane,Smith,17,inactive,2023-02-20,45
+3,Bob,Johnson,30,active,2023-01-10,92
+4,Alice,Brown,22,active,2023-03-05,78
+5,Charlie,Wilson,19,inactive,2023-02-28,60 

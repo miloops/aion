@@ -1,0 +1,12 @@
+{
+  "pipeline": [
+    {
+      "task": "filter",
+      "condition": {
+        "field": "age",
+        "operator": ">",
+        "value": 18
+      }
+    }
+  ]
+} 

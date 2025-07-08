@@ -1,0 +1,35 @@
+{
+  "pipeline": [
+    {
+      "task": "filter",
+      "condition": {
+        "field": "status",
+        "operator": "==",
+        "value": "active"
+      }
+    },
+    {
+      "task": "sort",
+      "operation": {
+        "field": "created_at",
+        "order": "desc"
+      }
+    },
+    {
+      "task": "transform",
+      "mapping": {
+        "user_id": "id",
+        "signup_date": "created_at",
+        "full_name": {
+          "concat": ["first_name", " ", "last_name"]
+        }
+      }
+    },
+    {
+      "task": "model_call",
+      "prompt": "Summarize the user's activity level based on their data:",
+      "input_field": "activity_score",
+      "output_field": "activity_summary"
+    }
+  ]
+} 
